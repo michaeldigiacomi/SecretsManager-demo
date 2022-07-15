@@ -25,7 +25,7 @@ public class SecretsController {
 		
 		Region region = Region.US_EAST_1;
 
-        ProfileCredentialsProvider pcp = ProfileCredentialsProvider.create();
+        ProfileCredentialsProvider pcp = ProfileCredentialsProvider.create("default");
         
 
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
