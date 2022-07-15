@@ -25,19 +25,20 @@ public class SecretsController {
 		
 		Region region = Region.US_EAST_1;
 
-        ProfileCredentialsProvider pcp = ProfileCredentialsProvider.create("default");
-        
-
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
                 .region(region)
-                .credentialsProvider(pcp)
                 .build();
 
-		List<SecretListEntry> returnval = listAllSecrets(secretsClient);
+        ListSecretsResponse secretsResponse = secretsClient.listSecrets();
+        
+		List<SecretListEntry> returnval = secretsResponse.secretList();
+
+        System.out.println(returnval);
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(returnval.get(0).arn())
                 .build();
+        
 
         GetSecretValueResponse valueResponse = secretsClient.getSecretValue(valueRequest);
         String secret = valueResponse.secretString();
@@ -46,18 +47,4 @@ public class SecretsController {
 
 		return "Secret with ID: " + returnval.get(0).arn() + " = " + secret;
 	}
-
-	public static List<SecretListEntry> listAllSecrets(SecretsManagerClient secretsClient) {
-
-        try {
-            ListSecretsResponse secretsResponse = secretsClient.listSecrets();
-            List<SecretListEntry> secrets = secretsResponse.secretList();
-
-            return secrets;
-
-        } 
-		catch (SecretsManagerException e) {
-            return null;
-        }
-    }
 }
