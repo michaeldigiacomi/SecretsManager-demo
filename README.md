@@ -27,11 +27,9 @@ When running on your local maching this code uses AWS Access Keys to int3erace w
 You will also have to include your credentials in ~/.aws/credentials
 
 ```bash
-mdigiacomi@mdigiacomi-desktop:~$ cat .aws/credentials 
-[default]
-aws_access_key_id=<value here>
-aws_secret_access_key=<value here>
-aws_session_token=<value here>
+mdigiacomi@mdigiacomi-desktop:~$ export AWS_ACCESS_KEY_ID="<key>"
+export AWS_SECRET_ACCESS_KEY="<secret>"
+export AWS_SESSION_TOKEN="<session token>"
 ```
 
 From here it is a simple:
